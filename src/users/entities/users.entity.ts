@@ -3,6 +3,7 @@ import { ROLS } from "../../constants/Rols";
 import { IUser } from "../../interface/user.interface";
 import { Column, Entity, OneToMany } from "typeorm";
 // import { UsersProjectsEntity } from "./usersProject.entity";
+import { WorkScheduleEntity } from "../../work-schedule/entities/workSchedule.entity";
 
 @Entity({name:'users'})
 export class UserEntity extends BaseEntity implements IUser{
@@ -22,5 +23,7 @@ export class UserEntity extends BaseEntity implements IUser{
     role:ROLS;
     // @OneToMany(()=> UsersProjectsEntity, (userProjects)=>userProjects.user)
     // projectsIncludes:UsersProjectsEntity[]
+    @OneToMany(()=>WorkScheduleEntity, (workSchedule)=>workSchedule.user)
+    workSchedules:WorkScheduleEntity[]
 
 }

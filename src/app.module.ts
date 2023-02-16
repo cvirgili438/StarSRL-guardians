@@ -3,7 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSourceConfig } from './config/data.source';
 import { UsersModule } from './users/users.module';
-import { ProjectsModule } from './projects/projects.module';
+import { WorkPlacesModule } from './workplaces/workPlaces.module';
+import { WorkScheduleModule } from './work-schedule/work-schedule.module';
 //test 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { ProjectsModule } from './projects/projects.module';
     }),
     TypeOrmModule.forRoot({...DataSourceConfig}),
     UsersModule,
-    ProjectsModule],
+    WorkPlacesModule,
+    WorkScheduleModule],
   controllers: [],
   providers: [],
 })

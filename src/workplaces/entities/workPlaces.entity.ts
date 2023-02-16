@@ -1,10 +1,11 @@
 import { BaseEntity } from "../../config/base.entity";
-import { IProject } from "../../interface/projects.interface";
+import { IWorkPlaces } from "../../interface/workPlaces.interface";
 // import { UsersProjectsEntity } from "../../users/entities/usersProject.entity";
 import { Column, Entity, OneToMany } from "typeorm";
+import { WorkScheduleEntity } from "../../work-schedule/entities/workSchedule.entity";
 
 @Entity({name:'workPlaces'})
-export class ProjectEntity extends BaseEntity implements IProject{
+export class WorkPlacesEntity extends BaseEntity implements IWorkPlaces{
     @Column()
     name:string;
     @Column()
@@ -15,5 +16,7 @@ export class ProjectEntity extends BaseEntity implements IProject{
     address: string;
     // @OneToMany(()=>UsersProjectsEntity,(project)=>project.project)
     // usersIncludes:UsersProjectsEntity[]
+    @OneToMany(()=>WorkScheduleEntity,(workSchedule)=>workSchedule.workPlace)
+    workSchedules: WorkScheduleEntity[]
 
 }

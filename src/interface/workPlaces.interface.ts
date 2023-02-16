@@ -1,5 +1,5 @@
 
-export interface IProject {
+export interface IWorkPlaces {
    name:string;
    city:string;
    state:string;
