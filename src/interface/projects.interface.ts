@@ -1,5 +1,7 @@
 
 export interface IProject {
-    name:string;
-    description:string;
+   name:string;
+   city:string;
+   state:string;
+   address:string;
 }

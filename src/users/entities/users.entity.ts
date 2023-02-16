@@ -2,7 +2,7 @@ import { BaseEntity } from "../../config/base.entity";
 import { ROLS } from "../../constants/Rols";
 import { IUser } from "../../interface/user.interface";
 import { Column, Entity, OneToMany } from "typeorm";
-import { UsersProjectsEntity } from "./usersProject.entity";
+// import { UsersProjectsEntity } from "./usersProject.entity";
 
 @Entity({name:'users'})
 export class UserEntity extends BaseEntity implements IUser{
@@ -20,7 +20,7 @@ export class UserEntity extends BaseEntity implements IUser{
     password:string;
     @Column({type:'enum',enum:ROLS})
     role:ROLS;
-    @OneToMany(()=> UsersProjectsEntity, (userProjects)=>userProjects.user)
-    projectsIncludes:UsersProjectsEntity[]
+    // @OneToMany(()=> UsersProjectsEntity, (userProjects)=>userProjects.user)
+    // projectsIncludes:UsersProjectsEntity[]
 
 }
