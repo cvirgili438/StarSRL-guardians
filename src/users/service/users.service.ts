@@ -64,4 +64,20 @@ export class UsersService {
       throw new Error(error);
     }
   }
+  public async userSchedule(id : string):Promise<UserEntity | undefined>{
+
+    try {
+      const user = await this.userRepository.createQueryBuilder('user')
+      .leftJoinAndSelect("users.workSchedules", "schedules")
+      .where("users.id = :id",{id:id})
+      .getOne()
+      if(!user){
+        return undefined
+      }
+      return user
+    } catch (error) {
+      throw new Error(error);
+      
+    }
+  }
 }
