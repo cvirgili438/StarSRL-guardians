@@ -7,8 +7,13 @@ export class WorkScheduleController {
 constructor(private readonly workSchedulesServices : WorkScheduleService){}
 @Post('create')
 public async createSchedule (@Body() body: WorkScheduleDTO){
-    return await this.workSchedulesServices.createSchedule(body)
+    const work = await this.workSchedulesServices.createSchedule(body)    
+    return work
 
+}
+@Get('/')
+public async getSchedules(){
+    return await this.workSchedulesServices.findAllSchedule()
 }
 @Get(':id')
 public async userSchedules (@Param('id') id: string){

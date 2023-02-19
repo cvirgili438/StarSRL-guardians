@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ErrorManager } from 'src/utils/error.manager';
+import { WorkScheduleEntity } from 'src/work-schedule/entities/workSchedule.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
-import { UserDTO, UserUpdateDTO } from '../dto/user.dto';
+import { UserDTO, UserToScheduleDTO, UserUpdateDTO } from '../dto/user.dto';
 import { UserEntity } from '../entities/users.entity';
 
 @Injectable()
@@ -10,6 +11,8 @@ export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(WorkScheduleEntity)
+    private readonly WorkScheduleRepository : Repository<WorkScheduleEntity>,
   ) {}
 
   public async createUser(body: UserDTO): Promise<UserEntity> {
@@ -109,6 +112,14 @@ export class UsersService {
     } catch (error) {
       throw  ErrorManager.createSignatureError(error.message)
       
+    }
+  }
+
+  public async relationToSchedule (body :UserToScheduleDTO ){
+    try {
+      return await this.WorkScheduleRepository.save(body)
+    } catch (error) {
+      throw  ErrorManager.createSignatureError(error.message)
     }
   }
 }

@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { UserDTO, UserUpdateDTO } from '../dto/user.dto';
+import { UserDTO, UserToScheduleDTO, UserUpdateDTO } from '../dto/user.dto';
 import { UsersService } from '../service/users.service';
 
 @Controller('users')
@@ -8,6 +8,10 @@ export class UsersController {
     @Post('register')
     public async registerUser(@Body() body : UserDTO){
         return await this.userService.createUser(body)
+    }
+    @Post('add-Schedule')
+    public async addSchedule(@Body() body :UserToScheduleDTO){
+        return await this.userService.relationToSchedule(body)
     }
     @Get('all')
     public async findAllUsers(){

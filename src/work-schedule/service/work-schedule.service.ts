@@ -16,6 +16,7 @@ export class WorkScheduleService {
     public async createSchedule(body: WorkScheduleDTO):Promise<WorkScheduleEntity>{
         try {
             const workSchedule : WorkScheduleEntity = await this.workScheduleRepository.create(body)
+            console.log(workSchedule)
             if(!workSchedule){
                 throw new ErrorManager({
                     type:'NOT_IMPLEMENTED',
@@ -24,7 +25,7 @@ export class WorkScheduleService {
             }
             else return workSchedule
         } catch (error) {
-            throw new ErrorManager.createSignatureError(error.message)
+            throw  ErrorManager.createSignatureError(error.message)
         }
     }
     public async findAllSchedule():Promise <WorkScheduleEntity[]>{
@@ -38,11 +39,11 @@ export class WorkScheduleService {
             }
             else return schedules
         } catch (error) {
-            throw new ErrorManager.createSignatureError(error.message);
+            throw  ErrorManager.createSignatureError(error.message);
             
         }
     }
-    public async findSchedulesOfUser(id:string):Promise<WorkScheduleEntity[] | undefined>{
+    public async findSchedulesOfUser(id:string):Promise<WorkScheduleEntity[]>{
         try {
             const schedules = await this.workScheduleRepository.createQueryBuilder('schedules') 
             .where("user.id = :id",{id})
@@ -56,7 +57,7 @@ export class WorkScheduleService {
             }
             else return schedules
         } catch (error) {
-            throw new ErrorManager.createSignatureError(error.message);
+            throw  ErrorManager.createSignatureError(error.message);
             
         }
     }

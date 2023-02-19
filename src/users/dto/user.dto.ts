@@ -1,5 +1,7 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from "class-validator";
 import { ROLS } from "src/constants/Rols";
+import { WorkScheduleEntity } from "src/work-schedule/entities/workSchedule.entity";
+import { UserEntity } from "../entities/users.entity";
 
 export class UserDTO {
     @IsNotEmpty()
@@ -46,4 +48,14 @@ export class UserUpdateDTO {
     @IsOptional()
     @IsEnum(ROLS)
     role:ROLS;
+}
+export class UserToScheduleDTO {
+    @IsNotEmpty()
+    @IsUUID()
+    user :UserEntity;
+    @IsNotEmpty()
+    @IsUUID()
+    workSchedules :WorkScheduleEntity;
+    
+
 }
