@@ -1,4 +1,5 @@
-import {IsNotEmpty,IsString, IsOptional } from "class-validator";
+import {IsNotEmpty,IsString, IsOptional, IsEnum} from "class-validator";
+import { StatesARG } from "src/constants/states";
 
 
 
@@ -10,8 +11,8 @@ export class workPlacesDTO {
     @IsString()
     city:string;
     @IsNotEmpty()
-    @IsString()
-    state:string;
+    @IsEnum(StatesARG)
+    state:StatesARG;
     @IsNotEmpty()
     @IsString()
     address:string;
@@ -25,8 +26,8 @@ export class updateWorkPlacesDTO {
     @IsString()
     city:string;
     @IsOptional()
-    @IsString()
-    state:string;
+    @IsEnum(StatesARG)
+    state:StatesARG;
     @IsOptional()
     @IsString()
     address:string;

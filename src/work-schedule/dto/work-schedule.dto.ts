@@ -1,4 +1,6 @@
-import {IsNotEmpty, IsNumber, IsString, IsOptional} from 'class-validator'
+import {IsNotEmpty, IsNumber, IsString, IsOptional, IsUUID} from 'class-validator'
+import { UserEntity } from 'src/users/entities/users.entity';
+import { WorkPlacesEntity } from 'src/workplaces/entities/workPlaces.entity';
 
 export class WorkScheduleDTO {
     @IsNotEmpty()
@@ -22,4 +24,13 @@ export class UpdateWorkScheduleDTO {
     @IsOptional()
     @IsString()
     endTime:string;
+}
+
+export class UserSchedulePlaceDTO {
+    @IsNotEmpty()
+    @IsUUID()
+    workPlace: WorkPlacesEntity
+    @IsNotEmpty()
+    @IsUUID()
+    user:UserEntity
 }

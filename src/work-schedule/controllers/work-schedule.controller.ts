@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { WorkScheduleDTO } from '../dto/work-schedule.dto';
+import { UserSchedulePlaceDTO, WorkScheduleDTO } from '../dto/work-schedule.dto';
 import { WorkScheduleService } from '../service/work-schedule.service';
 
 @Controller('work-schedule')
@@ -9,7 +9,10 @@ constructor(private readonly workSchedulesServices : WorkScheduleService){}
 public async createSchedule (@Body() body: WorkScheduleDTO){
     const work = await this.workSchedulesServices.createSchedule(body)    
     return work
-
+}
+@Post('unit-all')
+public async allUnit(@Body() body: UserSchedulePlaceDTO){
+    return await this.workSchedulesServices.userSchedulePlace(body)
 }
 @Get('/')
 public async getSchedules(){

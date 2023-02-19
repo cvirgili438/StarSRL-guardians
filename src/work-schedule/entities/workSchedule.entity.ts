@@ -18,11 +18,11 @@ export class WorkScheduleEntity extends BaseEntity implements IWorkSchedule {
     @ManyToOne(()=>WorkPlacesEntity,(workPlaces)=>workPlaces.workSchedules)
     workPlace:WorkPlacesEntity;
 
-    // @BeforeInsert()
-    // @BeforeUpdate()
-    // validateDayOfMonth() {
-    //     if (this.dayOfWeek < 1 || this.dayOfWeek > 31) {
-    //         throw new Error("dayOfMonth must be between 1 and 31");
-    //     }
-    // }
+    @BeforeInsert()
+    @BeforeUpdate()
+    validateDayOfMonth() {
+        if (this.dayOfWeek < 1 || this.dayOfWeek > 31) {
+            throw new Error("dayOfWeek must be between 1 and 31");
+        }
+    }
 }

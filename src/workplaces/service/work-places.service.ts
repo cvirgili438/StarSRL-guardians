@@ -22,7 +22,7 @@ export class WorkPlacesService {
             } 
             return workPlace
         } catch (error) {
-            throw new ErrorManager.createSignatureError(error.message)
+            throw  ErrorManager.createSignatureError(error.message)
         }
     }
     public async findWorkPlaces():Promise<WorkPlacesEntity[]>{
@@ -36,7 +36,7 @@ export class WorkPlacesService {
             }
             return places
         } catch (error) {
-            throw new ErrorManager.createSignatureError(error.message)
+            throw  ErrorManager.createSignatureError(error.message)
         }
     }
     public async findPlaceById(id:string):Promise<WorkPlacesEntity>{
@@ -54,7 +54,7 @@ export class WorkPlacesService {
             }
             return places
         } catch (error) {
-            throw new ErrorManager.createSignatureError(error.message)
+            throw  ErrorManager.createSignatureError(error.message)
         }
     }
     public async updateWorkPlace(
@@ -74,7 +74,7 @@ export class WorkPlacesService {
           }
           return workPlace;
         } catch (error) {
-          throw new ErrorManager.createSignatureError(error.message);
+          throw  ErrorManager.createSignatureError(error.message);
         }
       }
       public async deleteWorkPlace(id:string): Promise<DeleteResult >{
@@ -88,7 +88,7 @@ export class WorkPlacesService {
                 }
                 return workPlace
             } catch (error) {
-                throw new ErrorManager.createSignatureError(error.message)
+                throw  ErrorManager.createSignatureError(error.message)
             }
       }
 }
