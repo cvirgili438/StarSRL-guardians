@@ -44,9 +44,10 @@ export class WorkScheduleService {
     }
     public async findSchedulesOfUser(id:string):Promise<WorkScheduleEntity[] | undefined>{
         try {
-            const schedules = await this.workScheduleRepository.createQueryBuilder('schedules')
+            const schedules = await this.workScheduleRepository.createQueryBuilder('schedules') 
+            .where("user.id = :id",{id})
             .leftJoinAndSelect("schedules.user","user")
-            .where("user.id= :id",{id})
+            .leftJoinAndSelect('user.workSchedules','workSchedules')
             .getMany()
             if(schedules.length === 0 ){
                 throw new ErrorManager({
