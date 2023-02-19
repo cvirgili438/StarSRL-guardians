@@ -17,12 +17,12 @@ export class WorkPlacesService {
             if(!workPlace){
                 throw new ErrorManager({
                     type:'BAD_REQUEST',
-                    messege:'Cannot create a Work Place'
+                    message:'Cannot create a Work Place'
                 })
             } 
             return workPlace
         } catch (error) {
-            throw new Error(error)
+            throw new ErrorManager.createSignatureError(error.message)
         }
     }
     public async findWorkPlaces():Promise<WorkPlacesEntity[]>{
@@ -31,12 +31,12 @@ export class WorkPlacesService {
             if(places.length === 0 ){
                 throw new ErrorManager({
                     type:'BAD_REQUEST',
-                    messege:'Cannot find any Work Places'
+                    message:'Cannot find any Work Places'
                 })
             }
             return places
         } catch (error) {
-            throw new Error(error)
+            throw new ErrorManager.createSignatureError(error.message)
         }
     }
     public async findPlaceById(id:string):Promise<WorkPlacesEntity>{
@@ -49,12 +49,12 @@ export class WorkPlacesService {
             if(!places){
                 throw new ErrorManager({
                     type:'NOT_FOUND',
-                    messege:`Cannot found a places with the id = ${id}`
+                    message:`Cannot found a places with the id = ${id}`
                 })
             }
             return places
         } catch (error) {
-            throw new Error(error)
+            throw new ErrorManager.createSignatureError(error.message)
         }
     }
     public async updateWorkPlace(
@@ -69,12 +69,12 @@ export class WorkPlacesService {
           if (workPlace.affected === 0) {
             throw new ErrorManager({
                 type:'NOT_MODIFIED',
-                messege:`WorkPlace id ${id} `
+                message:`WorkPlace id ${id} `
             })
           }
           return workPlace;
         } catch (error) {
-          throw new Error(error);
+          throw new ErrorManager.createSignatureError(error.message);
         }
       }
       public async deleteWorkPlace(id:string): Promise<DeleteResult >{
@@ -83,12 +83,12 @@ export class WorkPlacesService {
                 if(workPlace.affected === 0 ){
                     throw new ErrorManager({
                         type:'BAD_REQUEST',
-                        messege:'cannot delete'
+                        message:'Cannot Delete'
                     })
                 }
                 return workPlace
             } catch (error) {
-                throw new Error(error)
+                throw new ErrorManager.createSignatureError(error.message)
             }
       }
 }

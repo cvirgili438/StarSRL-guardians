@@ -19,11 +19,11 @@ export class UsersService {
         return user
       }else throw new ErrorManager({
         type:'BAD_REQUEST',
-        messege:'cannot create a users for no reason'
+        message:'cannot create a users for no reason'
       })
        
     } catch (error) {
-      throw new Error(error);
+      throw  ErrorManager.createSignatureError(error.message)
     }
   }
 
@@ -33,12 +33,12 @@ export class UsersService {
       if(users.length === 0 ){
         throw new ErrorManager({
           type:'BAD_REQUEST',
-          messege:'cannot find users'
+          message:'cannot find users'
         })
       }
       return  users
     } catch (error) {
-      throw new Error(error);
+      throw  ErrorManager.createSignatureError(error.message)
     }
   }
 
@@ -50,13 +50,13 @@ export class UsersService {
       if(!user){
         throw new ErrorManager({
           type:'BAD_REQUEST',
-          messege:'The user cannot'
+          message:'The user cannot'
         })
       }
       return user 
       
     } catch (error) {
-      throw new Error(error);
+      throw  ErrorManager.createSignatureError(error.message)
     }
   }
 
@@ -69,12 +69,12 @@ export class UsersService {
       if (user.affected === 0) {
         throw new ErrorManager({
           type:'CONFLICT',
-          messege:'Cannot update the user'
+          message:'Cannot update the user'
         })
       }
       return user;
     } catch (error) {
-      throw new Error(error);
+      throw  ErrorManager.createSignatureError(error.message)
     }
   }
 
@@ -84,12 +84,12 @@ export class UsersService {
       if (user.affected === 0) {
         throw new ErrorManager({
           type:'INTERNAL_SERVER_ERROR',
-          messege:'Cannot delete de user'
+          message:'Cannot delete de user'
         })
       }
       return user;
     } catch (error) {
-      throw new Error(error);
+      throw  ErrorManager.createSignatureError(error.message)
     }
   }
   public async userSchedule(id : string):Promise<UserEntity | undefined>{
@@ -102,12 +102,12 @@ export class UsersService {
       if(!user){
         throw new ErrorManager({
           type:'BAD_REQUEST',
-          messege:'Cannot get Schedules '
+          message:'Cannot get Schedules '
         })
       }
       return user
     } catch (error) {
-      throw new Error(error);
+      throw  ErrorManager.createSignatureError(error.message)
       
     }
   }
