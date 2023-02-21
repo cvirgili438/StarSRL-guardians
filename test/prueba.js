@@ -33,5 +33,6 @@ const provincias = [
                 method:'post'
             })
     }
+    console.log('finish pushing')
   }
   funcion(provincias)
