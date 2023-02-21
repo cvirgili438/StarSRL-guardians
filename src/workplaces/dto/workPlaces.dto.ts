@@ -10,9 +10,7 @@ export class workPlacesDTO {
     @IsNotEmpty()
     @IsString()
     city:string;
-    @IsNotEmpty()
-    @IsEnum(StatesARG)
-    state:StatesARG;
+   
     @IsNotEmpty()
     @IsString()
     address:string;
@@ -25,9 +23,7 @@ export class updateWorkPlacesDTO {
     @IsOptional()
     @IsString()
     city:string;
-    @IsOptional()
-    @IsEnum(StatesARG)
-    state:StatesARG;
+   
     @IsOptional()
     @IsString()
     address:string;

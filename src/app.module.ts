@@ -5,6 +5,7 @@ import { DataSourceConfig } from './config/data.source';
 import { UsersModule } from './users/users.module';
 import { WorkPlacesModule } from './workplaces/workPlaces.module';
 import { WorkScheduleModule } from './work-schedule/work-schedule.module';
+import { StatesModule } from './states/states.module';
 //test 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { WorkScheduleModule } from './work-schedule/work-schedule.module';
     TypeOrmModule.forRoot({...DataSourceConfig}),
     UsersModule,
     WorkPlacesModule,
-    WorkScheduleModule],
+    WorkScheduleModule,
+    StatesModule],
   controllers: [],
   providers: [],
 })

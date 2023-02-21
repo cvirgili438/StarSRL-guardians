@@ -7,4 +7,7 @@ export interface IUser{
     username:string;
     password:string;
     role:string;
+    dni:number;
+    address:string
+    city:string;
 }
