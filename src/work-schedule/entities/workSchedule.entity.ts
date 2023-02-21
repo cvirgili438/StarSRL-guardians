@@ -3,15 +3,22 @@ import { BaseEntity } from "../../config/base.entity";
 import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne } from "typeorm";
 import { UserEntity } from "../../users/entities/users.entity";
 import { WorkPlacesEntity } from "../../workplaces/entities/workPlaces.entity";
+import { Month } from "../../constants/schedule.enum";
 
 @Entity({name:'workSchedule'})
 export class WorkScheduleEntity extends BaseEntity implements IWorkSchedule {
+    @Column({type:'enum',enum:Month})
+    month:Month
     @Column()
     dayOfWeek: number;
     @Column()
     startTime: string;
     @Column()
     endTime:string;
+    @Column()
+    startWorking: string;
+    @Column()
+    endWorking: string;
     @ManyToOne(()=>UserEntity,(user)=> user.workSchedules)
     user:UserEntity
 

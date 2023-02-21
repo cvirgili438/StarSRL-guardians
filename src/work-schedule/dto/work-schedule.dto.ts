@@ -1,8 +1,12 @@
-import {IsNotEmpty, IsNumber, IsString, IsOptional, IsUUID} from 'class-validator'
+import {IsNotEmpty, IsNumber, IsString, IsOptional, IsUUID,IsEnum} from 'class-validator'
+import { Month } from 'src/constants/schedule.enum';
 import { UserEntity } from 'src/users/entities/users.entity';
 import { WorkPlacesEntity } from 'src/workplaces/entities/workPlaces.entity';
 
 export class WorkScheduleDTO {
+    @IsNotEmpty()
+    @IsEnum(Month)
+    month:Month  
     @IsNotEmpty()
     @IsNumber()
     dayOfWeek: number;
@@ -12,6 +16,14 @@ export class WorkScheduleDTO {
     @IsNotEmpty()
     @IsString()
     endTime:string;
+    @IsOptional()
+    @IsString()
+    startWorking:string;
+    @IsOptional()
+    @IsString()
+    endWorking:string
+    
+
 }
 
 export class UpdateWorkScheduleDTO {
