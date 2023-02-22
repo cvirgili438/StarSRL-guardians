@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { StatesEntity } from 'src/states/entities/states.entity';
 import { ErrorManager } from 'src/utils/error.manager';
 import { WorkScheduleEntity } from 'src/work-schedule/entities/workSchedule.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
-import { UserDTO, UserToScheduleDTO, UserUpdateDTO } from '../dto/user.dto';
+import { UserCreateDTO, UserDTO, UserToScheduleDTO, UserUpdateDTO } from '../dto/user.dto';
 import { UserEntity } from '../entities/users.entity';
 
 @Injectable()
@@ -13,12 +14,15 @@ export class UsersService {
     private readonly userRepository: Repository<UserEntity>,
     @InjectRepository(WorkScheduleEntity)
     private readonly WorkScheduleRepository : Repository<WorkScheduleEntity>,
+    @InjectRepository(StatesEntity)
+    private readonly stateRepository:Repository<StatesEntity>
   ) {}
 
-  public async createUser(body: UserDTO): Promise<UserEntity> {
+  public async createUser(body: UserCreateDTO): Promise<UserEntity> {
     try {
+      let {state} = body
       const user : UserEntity = await this.userRepository.save(body);
-      if(user){
+      if(user && state){
         return user
       }else throw new ErrorManager({
         type:'BAD_REQUEST',
@@ -32,7 +36,9 @@ export class UsersService {
 
   public async findUsers(): Promise<UserEntity[]> {
     try {
-      const users : UserEntity[] = await this.userRepository.find();
+      const users : UserEntity[] = await this.userRepository.createQueryBuilder('users')
+      .leftJoinAndSelect("users.state","state")       
+      .getMany()
       if(users.length === 0 ){
         throw new ErrorManager({
           type:'BAD_REQUEST',
@@ -83,7 +89,7 @@ export class UsersService {
 
   public async deleteUser(id: string): Promise<DeleteResult> {
     try {
-      const user: DeleteResult = await this.userRepository.delete(id);
+      const user: DeleteResult = await this.userRepository.delete({id:id});
       if (user.affected === 0) {
         throw new ErrorManager({
           type:'INTERNAL_SERVER_ERROR',

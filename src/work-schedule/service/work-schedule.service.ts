@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { start } from 'repl';
 import { UserEntity } from 'src/users/entities/users.entity';
 import { ErrorManager } from 'src/utils/error.manager';
 import { WorkPlacesEntity } from 'src/workplaces/entities/workPlaces.entity';
@@ -69,7 +70,18 @@ export class WorkScheduleService {
     }
 
     public async userSchedulePlace(body: UserSchedulePlaceDTO){
+        let {workPlace,user,dayOfWeek,startTime,endTime}=body        
 
+        try {
+            if(!workPlace || !user || !dayOfWeek || !startTime || !endTime){
+            throw new ErrorManager({
+                type:'NO_CONTENT',
+                message:'Missing parameters'
+            })
+        }
         return await this.workScheduleRepository.save(body)
+        } catch (error) {
+            throw ErrorManager.createSignatureError(error.message)
+        }
     }
 }

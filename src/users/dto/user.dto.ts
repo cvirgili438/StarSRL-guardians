@@ -1,5 +1,6 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from "class-validator";
 import { ROLS } from "src/constants/Rols";
+import { StatesEntity } from "src/states/entities/states.entity";
 import { WorkScheduleEntity } from "src/work-schedule/entities/workSchedule.entity";
 import { UserEntity } from "../entities/users.entity";
 
@@ -58,4 +59,39 @@ export class UserToScheduleDTO {
     workSchedules :WorkScheduleEntity;
     
 
+}
+export class UserCreateDTO {
+    @IsNotEmpty()
+    @IsString()
+    firstName:string;
+    @IsNotEmpty()
+    @IsString()
+    lastName:string;
+    @IsNotEmpty()
+    @IsNumber()
+    age:number;
+    @IsNotEmpty()
+    @IsString()
+    city:string
+    @IsNotEmpty()
+    @IsString()
+    email:string;
+    @IsNotEmpty()
+    @IsString()
+    address:string
+    @IsNotEmpty()
+    @IsNumber()
+    dni:number
+    @IsNotEmpty()
+    @IsString() 
+    username:string;
+    @IsNotEmpty()
+    @IsString()
+    password:string;
+    @IsNotEmpty()
+    @IsEnum(ROLS)
+    role:ROLS;
+    @IsNotEmpty()
+    @IsUUID()
+    state :StatesEntity
 }

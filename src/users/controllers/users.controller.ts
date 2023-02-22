@@ -1,12 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { UserDTO, UserToScheduleDTO, UserUpdateDTO } from '../dto/user.dto';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { UserCreateDTO, UserDTO, UserToScheduleDTO, UserUpdateDTO } from '../dto/user.dto';
 import { UsersService } from '../service/users.service';
 
 @Controller('users')
 export class UsersController {
     constructor(private readonly userService : UsersService){}
     @Post('register')
-    public async registerUser(@Body() body : UserDTO){
+    public async registerUser(@Body() body : UserCreateDTO){
         return await this.userService.createUser(body)
     }
     @Post('add-Schedule')
@@ -24,5 +24,9 @@ export class UsersController {
     @Put('edit/:id')
     public async updateUser(@Param('id') id:string,@Body() body:UserUpdateDTO){
         return await this.userService.updateUser(body,id)
+    }
+    @Delete('delete/:id')
+    public async deleteUser(@Param('id') id:string){
+        return await this.userService.deleteUser(id)
     }
 }

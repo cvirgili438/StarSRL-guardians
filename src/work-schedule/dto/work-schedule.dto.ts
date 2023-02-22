@@ -45,4 +45,13 @@ export class UserSchedulePlaceDTO {
     @IsNotEmpty()
     @IsUUID()
     user:UserEntity
+    @IsNotEmpty()
+    @IsNumber()
+    dayOfWeek:number
+    @IsNotEmpty()
+    @IsString()
+    startTime:string
+    @IsNotEmpty()
+    @IsString()
+    endTime:string
 }

@@ -20,7 +20,7 @@ export class UserEntity extends BaseEntity implements IUser{
     email:string;
     @Column()
     address:string;
-    @Column()
+    @Column({unique:true})
     dni: number;
     @Column({unique:true})
     username:string;
