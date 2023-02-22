@@ -53,8 +53,9 @@ export class UsersService {
 
   public async findUserById(id: string): Promise<UserEntity> {
     try {
-      const user :UserEntity = await this.userRepository  .createQueryBuilder('user')
-        .where({ id })
+      const user :UserEntity = await this.userRepository  .createQueryBuilder('users')
+        .where({ id:id })
+        .leftJoinAndSelect("users.state","state")   
         .getOne();
       if(!user){
         throw new ErrorManager({
