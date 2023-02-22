@@ -1,5 +1,7 @@
+import { Month } from "src/constants/schedule.enum";
+
 export interface IWorkSchedule {
-    month:string;
+    month:Month;
     dayOfWeek: number;
     startTime: string;
     endTime:string;
