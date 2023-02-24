@@ -91,4 +91,21 @@ export class WorkPlacesService {
                 throw  ErrorManager.createSignatureError(error.message)
             }
       }
+      public async getByName(body:any):Promise<WorkPlacesEntity[]>{
+        try {
+            
+          let places = await this.workPlacesRepository.createQueryBuilder('places')
+          .where("places.name ILIKE :name",{name:`%${body.name}%`})
+          .getMany()
+          if(places.length === 0){
+            throw new ErrorManager({
+                type:'NOT_FOUND',
+                message:'algo'
+            })
+          }
+            return places
+        } catch (error) {
+            throw ErrorManager.createSignatureError(error.message)
+        }
+      }
 }

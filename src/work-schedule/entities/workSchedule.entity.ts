@@ -15,9 +15,9 @@ export class WorkScheduleEntity extends BaseEntity implements IWorkSchedule {
     startTime: string;
     @Column()
     endTime:string;
-    @Column()
+    @Column({nullable:true})
     startWorking: string;
-    @Column()
+    @Column({nullable:true})
     endWorking: string;
     @ManyToOne(()=>UserEntity,(user)=> user.workSchedules)
     user:UserEntity

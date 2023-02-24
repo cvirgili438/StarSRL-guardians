@@ -71,3 +71,216 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
+## Routes For this API 
+
+ - Users Routes 
+ ```typescript
+
+ //First all, the ENUM ROLS is =  USER='USER',ADMIN='ADMIN',SUPERVISOR='SUPERVISOR'
+    
+    
+ // POST localhost:3001/api/users/register
+ // you need to send a body, which is the follow
+ let body = {
+   @IsNotEmpty()
+    @IsString()
+    firstName:string;
+    @IsNotEmpty()
+    @IsString()
+    lastName:string;
+    @IsNotEmpty()
+    @IsNumber()
+    age:number;
+    @IsNotEmpty()
+    @IsString()
+    city:string
+    @IsNotEmpty()
+    @IsString()
+    @IsEmail()
+    email:string;
+    @IsNotEmpty()
+    @IsString()
+    address:string
+    @IsNotEmpty()
+    @IsNumber()
+    dni:number
+    @IsNotEmpty()
+    @IsString() 
+    username:string;
+    @IsNotEmpty()
+    @IsString()
+    password:string;
+    @IsNotEmpty()
+    @IsEnum(ROLS)
+    role:ROLS;
+    @IsNotEmpty()
+    @IsUUID()
+    state :StatesEntity
+ }
+
+  // POST localhost:3001/api/users/add-Schedule
+  //  attach an existing user's schedules to an existing user
+  let body= {
+    @IsNotEmpty()
+    @IsUUID()
+    user :UserEntity;
+    @IsNotEmpty()
+    @IsUUID()
+    workSchedules :WorkScheduleEntity;
+  }
+  // GET localhost:3001/api/users/all
+  //you will get all of the users
+
+  //GET  localhost:3001/api/users/:id
+  //User by ID 
+
+  //PUT localhost:3001/api/users/edit/:id
+  //You need a id in params and a body,
+  let body = {
+     @IsOptional()
+    @IsString()
+    firstName:string;
+    @IsNotEmpty()
+    @IsOptional()
+    lastName:string;
+    @IsOptional()
+    @IsNumber()
+    age:number;
+    @IsOptional()
+    @IsString()
+    @IsEmail()
+    email:string;
+    @IsOptional()
+    @IsString() 
+    username:string;
+    @IsOptional()
+    @IsString()
+    password:string;
+    @IsOptional()
+    @IsEnum(ROLS)
+    role:ROLS;
+  }
+  //DELETE localhost:3001/api/users/delete/:id
+  // if the response affected > 0, the delete is done
+
+  // 
+
+
+```
+- Schedules Routes 
+```typescript
+
+//first all Month enum is 
+enum Month {
+    January = "January",
+    February = "February",
+    March = "March",
+    April = "April",
+    May = "May",
+    June = "June",
+    July = "July",
+    August = "August",
+    September = "September",
+    October = "October",
+    November = "November",
+    December = "December"
+}
+//POST  localhost:3001/api/work-schedule/create
+//without user and place
+let body = {
+   @IsNotEmpty()
+    @IsEnum(Month)
+    month:Month  
+    @IsNotEmpty()
+    @IsNumber()
+    @Min(1)
+    @Max(31)
+    dayOfWeek: number;
+    @IsNotEmpty()
+    @IsString()
+    startTime: string;
+    @IsNotEmpty()
+    @IsString()
+    endTime:string;
+    @IsOptional()
+    @IsString()
+    startWorking:string;
+    @IsOptional()
+    @IsString()
+    endWorking:string
+}
+
+//POST  localhost:3001/api/work-schedule/unit-all
+
+//this post is used if you already have a user and a workplaced 
+
+let body = {
+     @IsNotEmpty()
+    @IsEnum(Month)
+    month:Month  
+    @IsNotEmpty()
+    @IsUUID()
+    workPlace: WorkPlacesEntity
+    @IsNotEmpty()
+    @IsUUID()
+    user:UserEntity
+    @IsNotEmpty()
+    @IsNumber()
+    @Min(1)
+    @Max(31)    
+    dayOfWeek:number
+    @IsNotEmpty()
+    @IsString()
+    startTime:string
+    @IsNotEmpty()
+    @IsString()
+    endTime:string
+    @IsOptional()
+    @IsString()
+    startWorking:string;
+    @IsOptional()
+    @IsString()
+    endWorking:string
+}
+
+// GET localhost:3001/api/work-schedule/:id
+// Get users schedules. 
+
+```
+- States Routes
+```typescript 
+//POST localhost:3001/api/states/create 
+let body = {
+  name:string
+}
+// GET all states  localhost:3001/api/states/all
+
+//GET State by Name localhost:3001/api/state/:name
+
+ 
+
+```
+- Work Places Routes :
+```typescript
+//POST localhost:3001/api/work-places/create
+let body ={
+    @IsNotEmpty()
+    @IsUUID()
+    state:StatesEntity
+    @IsNotEmpty()
+    @IsString()
+    name:string;
+    @IsNotEmpty()
+    @IsString()
+    city:string;   
+    @IsNotEmpty()
+    @IsString()
+    address:string;
+}
+
+// GET localhost:3001/api/work-places/all
+ //  get all places to work 
+ 
+```

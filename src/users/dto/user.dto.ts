@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from "class-validator";
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID,IsEmail } from "class-validator";
 import { ROLS } from "src/constants/Rols";
 import { StatesEntity } from "src/states/entities/states.entity";
 import { WorkScheduleEntity } from "src/work-schedule/entities/workSchedule.entity";
@@ -16,6 +16,7 @@ export class UserDTO {
     age:number;
     @IsNotEmpty()
     @IsString()
+    @IsEmail()
     email:string;
     @IsNotEmpty()
     @IsString() 
@@ -39,6 +40,7 @@ export class UserUpdateDTO {
     age:number;
     @IsOptional()
     @IsString()
+    @IsEmail()
     email:string;
     @IsOptional()
     @IsString() 
@@ -75,6 +77,7 @@ export class UserCreateDTO {
     city:string
     @IsNotEmpty()
     @IsString()
+    @IsEmail()
     email:string;
     @IsNotEmpty()
     @IsString()
