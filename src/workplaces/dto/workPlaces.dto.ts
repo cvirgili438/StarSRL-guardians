@@ -33,3 +33,8 @@ export class updateWorkPlacesDTO {
     @IsString()
     address:string;
 }
+export class ByNameDTO {
+    @IsNotEmpty()
+    @IsString()
+    name:string
+}

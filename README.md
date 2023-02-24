@@ -283,4 +283,29 @@ let body ={
 // GET localhost:3001/api/work-places/all
  //  get all places to work 
  
+
+ //GET localhost:3001/api/work-places/name
+ // get a name by body 
+ let body = {
+  @IsNotEmpty()
+  @IsString()
+  name:string
+ }
+
+ //PUT localhost:3001/api/work-places/:id
+ // this endpoint needs a id in params and the next body 
+ let body = {
+    @IsOptional()
+    @IsUUID()
+    state:StatesEntity
+    @IsOptional()
+    @IsString()
+    name:string;
+    @IsOptional()
+    @IsString()
+    city:string;   
+    @IsOptional()
+    @IsString()
+    address:string;
+ }
 ```

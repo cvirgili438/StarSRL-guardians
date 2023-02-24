@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { workPlacesDTO } from '../dto/workPlaces.dto';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { ByNameDTO, updateWorkPlacesDTO, workPlacesDTO } from '../dto/workPlaces.dto';
 import { WorkPlacesService } from '../service/work-places.service';
 
 @Controller('work-places')
@@ -15,8 +15,12 @@ constructor(private readonly workPlacesServices: WorkPlacesService){}
         return await this.workPlacesServices.findWorkPlaces()
     }
 @Get('/name/')
-    public async getPlaceByCity(@Body() body:any){
+    public async getPlaceByCity(@Body() body:ByNameDTO){
         return await this.workPlacesServices.getByName(body)
+    }
+@Put(':id')
+    public async changePlace(@Body()body :updateWorkPlacesDTO, @Param('id') id:string){
+        return await this.workPlacesServices.updateWorkPlace(body,id)
     }
 
 }
