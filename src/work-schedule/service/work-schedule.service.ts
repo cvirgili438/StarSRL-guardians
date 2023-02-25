@@ -69,17 +69,28 @@ export class WorkScheduleService {
         }
     }
 
-    public async userSchedulePlace(body: UserSchedulePlaceDTO){
-        let {workPlace,user,dayOfWeek,startTime,endTime}=body        
+    public async userSchedulePlace(body: UserSchedulePlaceDTO):Promise<WorkScheduleEntity>{
+        let {workPlace,user,dayOfWeek,startTime,endTime,month}=body  
+
 
         try {
-            if(!workPlace || !user || !dayOfWeek || !startTime || !endTime){
+            if(!workPlace || !user || !dayOfWeek || !startTime || !endTime || !month){
             throw new ErrorManager({
                 type:'NO_CONTENT',
                 message:'Missing parameters'
             })
         }
-        return await this.workScheduleRepository.save(body)
+        let verify :WorkScheduleEntity = await this.workScheduleRepository.createQueryBuilder('schedule')
+        .where('schedule.workPlace = :workPlace AND schedule.startTime = :startTime AND schedule.endTime = :endTime AND schedule.month = :month AND schedule.dayOfWeek = :dayOfWeek',
+        {workPlace:workPlace,endTime:endTime,startTime:startTime,month:month,dayOfWeek:dayOfWeek})
+        .getOne()
+        if(verify){
+            throw new ErrorManager({
+                type:'AMBIGUOUS',
+                message:'The Schedule already exist,please change the exist schedule id '+verify.id
+            })
+        }
+        else return await this.workScheduleRepository.save(body)
         } catch (error) {
             throw ErrorManager.createSignatureError(error.message)
         }
