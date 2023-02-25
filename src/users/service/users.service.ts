@@ -16,7 +16,9 @@ export class UsersService {
     private readonly WorkScheduleRepository : Repository<WorkScheduleEntity>,
     @InjectRepository(StatesEntity)
     private readonly stateRepository:Repository<StatesEntity>
-  ) {}
+  ) {
+   
+  }
 
   public async createUser(body: UserCreateDTO): Promise<UserEntity> {
     try {
