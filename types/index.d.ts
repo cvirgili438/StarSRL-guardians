@@ -10,6 +10,7 @@ declare namespace NodeJS {
         DB_PORT:number
         DB_PASSWORD:number
         DB_NAME:string
+        HASH_SALT:number
       
     }
 }

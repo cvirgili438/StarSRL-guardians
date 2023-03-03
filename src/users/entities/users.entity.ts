@@ -1,5 +1,6 @@
 import { BaseEntity } from "../../config/base.entity";
 import { ROLS } from "../../constants/Rols";
+import { Exclude } from 'class-transformer'
 import { IUser } from "../../interface/user.interface";
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 // import { UsersProjectsEntity } from "./usersProject.entity";
@@ -25,6 +26,7 @@ export class UserEntity extends BaseEntity implements IUser{
     @Column({unique:true})
     username:string;
     @Column()
+    @Exclude()
     password:string;
     @Column({type:'enum',enum:ROLS})
     role:ROLS;

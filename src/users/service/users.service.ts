@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { StatesEntity } from 'src/states/entities/states.entity';
+import * as bcrypt from 'bcrypt'
 import { ErrorManager } from 'src/utils/error.manager';
 import { WorkScheduleEntity } from 'src/work-schedule/entities/workSchedule.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
@@ -23,9 +24,11 @@ export class UsersService {
   public async createUser(body: UserCreateDTO): Promise<UserEntity> {
     try {
       let {state} = body
-      const user : UserEntity = await this.userRepository.save(body);
+      const user : UserEntity = await this.userRepository.create(body);
+      const newPassword = await bcrypt.hash(user.password,+process.env.HASH_SALT) 
+      user.password = newPassword
       if(user && state){
-        return user
+        return await this.userRepository.save(user)
       }else throw new ErrorManager({
         type:'BAD_REQUEST',
         message:'cannot create a users for no reason'
