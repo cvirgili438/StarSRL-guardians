@@ -14,9 +14,3 @@ declare namespace NodeJS {
     }
 }
 
-// PORT=3001
-// DB_HOST=localhost
-// DB_USER=postgres
-// DB_PORT=5432
-// DB_PASSWORD=34512137
-// DB_NAME=nest_star
