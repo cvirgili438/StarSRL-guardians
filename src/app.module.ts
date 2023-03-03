@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { WorkPlacesModule } from './workplaces/workPlaces.module';
 import { WorkScheduleModule } from './work-schedule/work-schedule.module';
 import { StatesModule } from './states/states.module';
+import { AuthModule } from './auth/auth.module';
 //test 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { StatesModule } from './states/states.module';
     UsersModule,
     WorkPlacesModule,
     WorkScheduleModule,
-    StatesModule],
+    StatesModule,
+    AuthModule],
   controllers: [],
   providers: [],
 })
