@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { PublicAccess } from 'src/auth/decorators/public.decorator';
 import { UserSchedulePlaceDTO, WorkScheduleDTO } from '../dto/work-schedule.dto';
 import { WorkScheduleService } from '../service/work-schedule.service';
 
@@ -14,10 +15,12 @@ public async createSchedule (@Body() body: WorkScheduleDTO){
 public async allUnit(@Body() body: UserSchedulePlaceDTO){
     return await this.workSchedulesServices.userSchedulePlace(body)
 }
+@PublicAccess()
 @Get('/')
 public async getSchedules(){
     return await this.workSchedulesServices.findAllSchedule()
 }
+@PublicAccess()
 @Get(':id')
 public async userSchedules (@Param('id') id: string){
     return await this.workSchedulesServices.findSchedulesOfUser(id)

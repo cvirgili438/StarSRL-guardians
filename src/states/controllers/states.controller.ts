@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { PublicAccess } from 'src/auth/decorators/public.decorator';
 import { StateDTO } from '../dto/state.dto';
 import { StatesService } from '../services/states.service';
 
@@ -9,6 +10,7 @@ export class StatesController {
     public async createState(@Body() body : StateDTO){
         return await this.statesServices.createState(body)
     }
+    @PublicAccess()
     @Get('all')
     public async getStates(){
         return await this.statesServices.getStates()
