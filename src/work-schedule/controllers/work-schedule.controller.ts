@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards} from '@nestjs/common';
 import { PublicAccess } from 'src/auth/decorators/public.decorator';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { UserSchedulePlaceDTO, WorkScheduleDTO } from '../dto/work-schedule.dto';
 import { WorkScheduleService } from '../service/work-schedule.service';
 
 @Controller('work-schedule')
+@UseGuards(AuthGuard)
 export class WorkScheduleController {
 constructor(private readonly workSchedulesServices : WorkScheduleService){}
 @Post('create')
