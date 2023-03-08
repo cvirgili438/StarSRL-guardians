@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { PublicAccess } from 'src/auth/decorators/public.decorator';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { StateDTO } from '../dto/state.dto';
 import { StatesService } from '../services/states.service';
 
 @Controller('states')
+@UseGuards(AuthGuard)
 export class StatesController {
     constructor(private readonly statesServices:StatesService){}
     @Post('create')

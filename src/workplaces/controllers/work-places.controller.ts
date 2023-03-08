@@ -1,9 +1,12 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common/decorators';
 import { PublicAccess } from 'src/auth/decorators/public.decorator';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { ByNameDTO, updateWorkPlacesDTO, workPlacesDTO } from '../dto/workPlaces.dto';
 import { WorkPlacesService } from '../service/work-places.service';
 
 @Controller('work-places')
+@UseGuards(AuthGuard)
 export class WorkPlacesController {
 constructor(private readonly workPlacesServices: WorkPlacesService){}
 
