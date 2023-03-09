@@ -12,7 +12,7 @@ export class RolesGuard implements CanActivate {
   ){}
   canActivate(
     context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  ) {
     const isPublic = this.reflector.get<Boolean>(
       PUBLIC_KEY,
       context.getHandler()

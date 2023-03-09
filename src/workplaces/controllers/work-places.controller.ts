@@ -15,12 +15,12 @@ constructor(private readonly workPlacesServices: WorkPlacesService){}
         public async createWorkPlace(@Body() body:workPlacesDTO){
             return await this.workPlacesServices.createWorkPlace(body)
         }
-    @PublicAccess()
+    @Roles('SUPERVISOR','ADMIN')
     @Get('all')
         public async getAllWorkPlaces(){
             return await this.workPlacesServices.findWorkPlaces()
         }
-    @PublicAccess()
+    @Roles('SUPERVISOR','ADMIN')
     @Get('/name/')
         public async getPlaceByCity(@Body() body:ByNameDTO){
             return await this.workPlacesServices.getByName(body)

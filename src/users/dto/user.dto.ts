@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID,IsEmail } from "class-validator";
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID,IsEmail, isNotEmpty } from "class-validator";
 import { ROLS } from "src/constants/Rols";
 import { StatesEntity } from "src/states/entities/states.entity";
 import { WorkScheduleEntity } from "src/work-schedule/entities/workSchedule.entity";
@@ -97,4 +97,10 @@ export class UserCreateDTO {
     @IsNotEmpty()
     @IsUUID()
     state :StatesEntity
+}
+
+export class UUIDUser {
+    @IsNotEmpty()
+    @IsUUID()
+    user:UserEntity
 }
