@@ -1,11 +1,13 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { PublicAccess } from 'src/auth/decorators/public.decorator';
+import { Roles } from 'src/auth/decorators/roles.decorator';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { UserCreateDTO, UserDTO, UserToScheduleDTO, UserUpdateDTO } from '../dto/user.dto';
 import { UsersService } from '../service/users.service';
 
 @Controller('users')
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard,RolesGuard)
 export class UsersController {
     constructor(private readonly userService : UsersService){}
     @PublicAccess()
@@ -18,6 +20,7 @@ export class UsersController {
         return await this.userService.relationToSchedule(body)
     }
     
+    @Roles('SUPERVISOR','ADMIN')
     @Get('all')
     public async findAllUsers(){
         return await this.userService.findUsers()
