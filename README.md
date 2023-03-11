@@ -75,6 +75,11 @@ Nest is [MIT licensed](LICENSE).
 
 ## Routes For this API 
 
+ - Before all, the routes are already protected, so if you dont want to fight against the authentications, you must enter in the controllers (User, Schedules, States and WorkPlaces) and comment the decorartor which called "@UseGuard". 
+ Otherwhise, you need to get a token by the route localhost:3001/api/auth/login ( you can use username and password or email and passwork, choose your prefer)
+ then, in the most of the routes, you will need a header called access_token, with the token you get from the authentication. 
+ You can see if the route are protected or no in the controllers, the routes which have the decorartor "@PublicAccess", you don't need a access token.
+
  - Users Routes 
  ```typescript
 
