@@ -37,7 +37,7 @@ public async userSchedules (@Param('id') id: string){
 public async putSchedule(@Body() body:SchedulePutDTO){
     return await this.workSchedulesServices.putSchedule(body)
 }
-@PublicAccess()
+@Roles('USER')
 @Put(':id')
 public async startWorking(@Param('id') id:string,@Body() body:StartOrEndingWorkDTO){
     return await this.workSchedulesServices.putWorking(id,body)
