@@ -74,6 +74,23 @@ export class UsersService {
       throw  ErrorManager.createSignatureError(error.message)
     }
   }
+  public async findBy ({key,value}:{
+    key:keyof UserDTO;
+    value: any ; 
+  }) :Promise<UserEntity>{
+    try {
+        const user : UserEntity = await this.userRepository.createQueryBuilder('user')
+        .addSelect('user.password')
+        .where({[key]:value})
+        .getOne()
+        if(user){
+          return user
+        }
+        
+    } catch (error) {
+      
+    }
+  }
 
   public async updateUser(
     body: UserUpdateDTO,

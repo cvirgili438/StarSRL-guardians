@@ -17,6 +17,7 @@ import { StatesEntity } from 'src/states/entities/states.entity';
   ]
   ,
   providers: [ UsersService],
-  controllers: [UsersController]
+  controllers: [UsersController],
+  exports:[UsersService, TypeOrmModule]
 })
 export class UsersModule {}

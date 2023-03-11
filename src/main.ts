@@ -13,6 +13,8 @@ async function bootstrap() {
   const configService = app.get(ConfigService)
   app.enableCors(CORS)
   app.setGlobalPrefix('api')
+
+  // if you want get User's Password in the GET request, you need to commend line 18 and 19
   const reflector = app.get(Reflector)
   app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector))
   
