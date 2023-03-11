@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { start } from 'repl';
+import { Month } from 'src/constants/schedule.enum';
 import { UserEntity } from 'src/users/entities/users.entity';
 import { ErrorManager } from 'src/utils/error.manager';
 import { WorkPlacesEntity } from 'src/workplaces/entities/workPlaces.entity';
 import { Repository } from 'typeorm';
-import { UserSchedulePlaceDTO, WorkScheduleDTO } from '../dto/work-schedule.dto';
+import { SchedulePutDTO, StartOrEndingWorkDTO, UserSchedulePlaceDTO, WorkScheduleDTO } from '../dto/work-schedule.dto';
 import { WorkScheduleEntity } from '../entities/workSchedule.entity';
 
 @Injectable()
@@ -94,5 +94,79 @@ export class WorkScheduleService {
         } catch (error) {
             throw ErrorManager.createSignatureError(error.message)
         }
+    }
+    public async putSchedule(body : SchedulePutDTO):Promise<WorkScheduleEntity>{
+        
+        try {
+            const {ScheduleID,month}=body;
+            const newObject =Object.assign({},body)
+            delete newObject.ScheduleID
+            console.log(ScheduleID)
+            if(!ScheduleID || ScheduleID === undefined|| !body){
+               throw new ErrorManager({
+                type:'BAD_REQUEST',
+                message:'Please, send a Schedule ID '
+               })                
+            }
+            if(month && !Object.values(Month).includes(month)){
+                throw new ErrorManager({
+                    type:'CONFLICT',
+                    message:`Please insert a valid Month like a ${Object.keys(Month)}`
+                })
+            }
+            else{ 
+                let schedule= await this.workScheduleRepository
+                .createQueryBuilder('schedule')
+                .where('schedule.id = :id',{id:ScheduleID})
+                .getOne();
+                schedule={
+                    ...schedule,
+                    ...newObject
+                }
+                return this.workScheduleRepository.save(schedule)
+            }
+
+
+        } catch (error) {
+            throw ErrorManager.createSignatureError(error.message)
+        }
+
+    }
+    public async putWorking(id:string,body:StartOrEndingWorkDTO):Promise<WorkScheduleEntity>{
+        try {
+            const {endWorking,startWorking}=body
+            if(!id || !body){
+                throw new ErrorManager({
+                    type: 'BAD_REQUEST',
+                    message:'Id or body is missing',
+                })
+            }
+            let schedule = await this.workScheduleRepository
+            .createQueryBuilder('schedule')
+            .where('schedule.id = :id',{id:id})
+            .getOne()
+            if(endWorking && schedule.endWorking){
+                throw new ErrorManager({
+                    type:'CONFLICT',
+                    message:'you cant change your end Working time'
+                })
+            }
+            if(startWorking && schedule.startWorking){
+                throw new ErrorManager({
+                    type:'CONFLICT',
+                    message:'you cant change your start Working time'
+                })
+            }
+            else {
+                schedule = {
+                    ...schedule,
+                    ...body
+                }
+            }
+            return await this.workScheduleRepository.save(schedule)
+        } catch (error) {
+            throw ErrorManager.createSignatureError(error.message)
+        }
+
     }
 }
