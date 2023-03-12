@@ -90,6 +90,36 @@ export class WorkScheduleService {
                 message:'The Schedule already exist,please change the exist schedule id '+verify.id
             })
         }
+        let verify2 :WorkScheduleEntity[] = await this.workScheduleRepository.createQueryBuilder('schedule')
+        .where('schedule.workPlace = :workPlace AND schedule.month = :month AND schedule.dayOfWeek = :dayOfWeek',
+        {
+            workPlace:workPlace,
+            month:month,
+            dayOfWeek:dayOfWeek
+        })
+        .getMany()
+        
+        if(verify2.length > 0){            
+            let find = verify2.filter(e=>(e.startTime === startTime && e.endTime === endTime))
+            let start = verify2.map(e=>+e.startTime.split(':')[0])[0]
+            let finish = verify2.map(e=>+e.endTime.split(':')[0])[0]
+            let startNew = +startTime.split(':')[0]
+            let finishNew = +endTime.split(':')[0]
+            if(startNew >= start && startNew < finish ){
+                throw new ErrorManager({
+                    type:'BAD_REQUEST',
+                    message:`Other employee is already selected to work this day `
+                })
+            }
+            if(find.length >0){
+                throw new ErrorManager({
+                    type:'AMBIGUOUS',
+                    message:'The Schedule already exist,please change the exist schedule id '+verify.id
+                })
+            }
+            else return await this.workScheduleRepository.save(body)
+           
+        }
         else return await this.workScheduleRepository.save(body)
         } catch (error) {
             throw ErrorManager.createSignatureError(error.message)
