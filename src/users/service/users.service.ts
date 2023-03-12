@@ -76,7 +76,7 @@ export class UsersService {
   }
   public async findBy ({key,value}:{
     key:keyof UserDTO;
-    value: any ; 
+    value: string ; 
   }) :Promise<UserEntity>{
     try {
         const user : UserEntity = await this.userRepository.createQueryBuilder('user')
@@ -97,6 +97,27 @@ export class UsersService {
     id: string,
   ): Promise<UpdateResult> {
     try {
+      const {password}=body      
+      if(password){
+        const newUser :UserEntity = await this.userRepository.createQueryBuilder('user')
+        .where('user.id = :id',{id:id})
+        .getOne()
+        const newPassword = await bcrypt.hash(password,+process.env.HASH_SALT)        
+      //   const newPassword = await bcrypt.hash(user.password,+process.env.HASH_SALT) 
+      // user.password = newPassword
+        newUser.password=newPassword
+        await this.userRepository.save(newUser)
+        const newBody = Object.assign({},body)
+        delete newBody.password
+        const finishUser :UpdateResult= await this.userRepository.update(id,newBody)
+        if (finishUser.affected === 0) {
+          throw new ErrorManager({
+            type:'CONFLICT',
+            message:'Cannot update the user'
+          })
+        }
+        else return finishUser
+      }
       const user: UpdateResult = await this.userRepository.update(id, body);
       if (user.affected === 0) {
         throw new ErrorManager({

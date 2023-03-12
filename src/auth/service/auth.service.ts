@@ -20,7 +20,7 @@ export class AuthService {
             value : username
         })
         if (userByUsername){
-            const match = await bcrypt.compare(password,userByUsername.password)
+            const match = await bcrypt.compare(password,userByUsername.password)            
             if(match)return userByUsername
         }
         if (userByEmail){
