@@ -12,8 +12,8 @@ import { StatesService } from '../services/states.service';
 export class StatesController {
     constructor(private readonly statesServices:StatesService){}
     @PublicAccess()
-    @Post('create')
-    public async createState(@Body() body : StateDTO){
+    @Post('create/:body')
+    public async createState(@Param('body') body : StateDTO){
         return await this.statesServices.createState(body)
     }
     @PublicAccess()
