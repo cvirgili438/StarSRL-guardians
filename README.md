@@ -31,6 +31,22 @@
 ```bash
 $ npm install
 ```
+- You will need to set an enviroment variables to work with this project. Being more specific, .env 
+```bash
+#Port Variables
+PORT=3001 #Or the port whatever you want
+#  Postgres variables
+DB_HOST=
+DB_PORT=
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+
+#Auth
+
+HASH_SALT= 10
+JWT_SECRET= #Here set a string like something@nestjs.com
+``` 
 
 ## Running the app
 
