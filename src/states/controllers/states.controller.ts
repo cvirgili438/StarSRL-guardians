@@ -11,7 +11,7 @@ import { StatesService } from '../services/states.service';
 @UseGuards(AuthGuard,RolesGuard)
 export class StatesController {
     constructor(private readonly statesServices:StatesService){}
-    @Roles('ADMIN','SUPERVISOR')
+    @PublicAccess()
     @Post('create')
     public async createState(@Body() body : StateDTO){
         return await this.statesServices.createState(body)

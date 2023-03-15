@@ -1,9 +1,10 @@
 import { Body, Controller, Get, Param, Post, UseGuards} from '@nestjs/common';
+import { Put } from '@nestjs/common/decorators';
 import { PublicAccess } from 'src/auth/decorators/public.decorator';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { UserSchedulePlaceDTO, WorkScheduleDTO } from '../dto/work-schedule.dto';
+import { SchedulePutDTO, StartOrEndingWorkDTO, UserSchedulePlaceDTO, WorkScheduleDTO } from '../dto/work-schedule.dto';
 import { WorkScheduleService } from '../service/work-schedule.service';
 
 @Controller('work-schedule')
@@ -31,5 +32,14 @@ public async getSchedules(){
 public async userSchedules (@Param('id') id: string){
     return await this.workSchedulesServices.findSchedulesOfUser(id)
 }
-
+@Roles('ADMIN','SUPERVISOR')
+@Put('/Put')
+public async putSchedule(@Body() body:SchedulePutDTO){
+    return await this.workSchedulesServices.putSchedule(body)
+}
+@Roles('USER')
+@Put(':id')
+public async startWorking(@Param('id') id:string,@Body() body:StartOrEndingWorkDTO){
+    return await this.workSchedulesServices.putWorking(id,body)
+}
 }
