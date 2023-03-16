@@ -6,7 +6,9 @@ import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { SchedulePutDTO, StartOrEndingWorkDTO, UserSchedulePlaceDTO, WorkScheduleDTO } from '../dto/work-schedule.dto';
 import { WorkScheduleService } from '../service/work-schedule.service';
+import {ApiTags} from '@nestjs/swagger'
 
+@ApiTags('Work Schedules')
 @Controller('work-schedule')
 @UseGuards(AuthGuard,RolesGuard)
 export class WorkScheduleController {
