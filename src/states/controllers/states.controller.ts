@@ -6,7 +6,9 @@ import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { StateDTO } from '../dto/state.dto';
 import { StatesService } from '../services/states.service';
+import {ApiTags} from '@nestjs/swagger'
 
+@ApiTags('States')
 @Controller('states')
 @UseGuards(AuthGuard,RolesGuard)
 export class StatesController {

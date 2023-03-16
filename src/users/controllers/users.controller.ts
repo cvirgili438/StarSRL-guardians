@@ -7,13 +7,14 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { UserIdGuard } from 'src/auth/guards/user-id.guard';
 import { UserCreateDTO, UserDTO, UserToScheduleDTO, UserUpdateDTO } from '../dto/user.dto';
 import { UsersService } from '../service/users.service';
-
+import {ApiTags} from '@nestjs/swagger'
+@ApiTags('Users')
 @Controller('users')
 @UseGuards(AuthGuard,RolesGuard,UserIdGuard)
 export class UsersController {
     constructor(private readonly userService : UsersService){}
     @PublicAccess()
-    @Post('register')
+    @Post('register')   
     public async registerUser(@Body() body : UserCreateDTO){
         return await this.userService.createUser(body)
     }

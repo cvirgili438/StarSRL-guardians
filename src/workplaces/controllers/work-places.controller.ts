@@ -5,7 +5,9 @@ import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { ByNameDTO, updateWorkPlacesDTO, workPlacesDTO } from '../dto/workPlaces.dto';
 import { WorkPlacesService } from '../service/work-places.service';
+import {ApiTags} from '@nestjs/swagger'
 
+@ApiTags('Work Places')
 @Controller('work-places')
 @UseGuards(AuthGuard,RolesGuard)
 export class WorkPlacesController {
