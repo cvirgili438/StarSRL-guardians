@@ -90,6 +90,7 @@ Nest is [MIT licensed](LICENSE).
 
 
 ## Routes For this API 
+ - Before all, you can read the routes and see the required body or param in this document or enter in the route localhost:3001/docs and you can see in swagger api more like a page, and more understable 
 
  - Users Routes 
  ```typescript
