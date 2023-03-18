@@ -10,6 +10,8 @@ export class WorkScheduleEntity extends BaseEntity implements IWorkSchedule {
     @Column({type:'enum',enum:Month})
     month:Month
     @Column()
+    year: number;   
+    @Column()
     dayOfWeek: number;
     @Column()
     startTime: string;

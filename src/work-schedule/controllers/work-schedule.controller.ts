@@ -6,7 +6,7 @@ import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { SchedulePutDTO, StartOrEndingWorkDTO, UserSchedulePlaceDTO, WorkScheduleDTO } from '../dto/work-schedule.dto';
 import { WorkScheduleService } from '../service/work-schedule.service';
-import {ApiTags, ApiHeader} from '@nestjs/swagger'
+import {ApiTags, ApiHeader, ApiParam} from '@nestjs/swagger'
 
 @ApiTags('Work Schedules')
 @Controller('work-schedule')
@@ -35,6 +35,11 @@ export class WorkScheduleController {
   public async getSchedules() {
     return await this.workSchedulesServices.findAllSchedule();
   }
+  @ApiParam({
+    name:'id',
+    description:'User ID '
+
+  })
   @PublicAccess()
   @Get(':id')
   public async userSchedules(@Param('id') id: string) {

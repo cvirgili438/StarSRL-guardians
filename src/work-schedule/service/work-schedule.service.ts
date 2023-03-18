@@ -70,20 +70,30 @@ export class WorkScheduleService {
     }
 
     public async userSchedulePlace(body: UserSchedulePlaceDTO):Promise<WorkScheduleEntity>{
-        let {workPlace,user,dayOfWeek,startTime,endTime,month}=body  
+        let {workPlace,user,dayOfWeek,startTime,endTime,month,year}=body  
 
 
         try {
-            if(!workPlace || !user || !dayOfWeek || !startTime || !endTime || !month){
+            if(!workPlace || !user || !dayOfWeek || !startTime || !endTime || !month || !year){
             throw new ErrorManager({
                 type:'NO_CONTENT',
                 message:'Missing parameters'
             })
         }
-        let verify :WorkScheduleEntity = await this.workScheduleRepository.createQueryBuilder('schedule')
-        .where('schedule.workPlace = :workPlace AND schedule.startTime = :startTime AND schedule.endTime = :endTime AND schedule.month = :month AND schedule.dayOfWeek = :dayOfWeek',
-        {workPlace:workPlace,endTime:endTime,startTime:startTime,month:month,dayOfWeek:dayOfWeek})
-        .getOne()
+        let verify: WorkScheduleEntity = await this.workScheduleRepository
+          .createQueryBuilder('schedule')
+          .where(
+            'schedule.workPlace = :workPlace AND schedule.startTime = :startTime AND schedule.endTime = :endTime AND schedule.month = :month AND schedule.dayOfWeek = :dayOfWeek AND schedule.year = :year',
+            {
+              workPlace: workPlace,
+              endTime: endTime,
+              startTime: startTime,
+              month: month,
+              dayOfWeek: dayOfWeek,
+              year: year,
+            },
+          )
+          .getOne();
         if(verify){
             throw new ErrorManager({
                 type:'AMBIGUOUS',
@@ -91,11 +101,12 @@ export class WorkScheduleService {
             })
         }
         let verify2 :WorkScheduleEntity[] = await this.workScheduleRepository.createQueryBuilder('schedule')
-        .where('schedule.workPlace = :workPlace AND schedule.month = :month AND schedule.dayOfWeek = :dayOfWeek',
+        .where('schedule.workPlace = :workPlace AND schedule.month = :month AND schedule.dayOfWeek = :dayOfWeek AND schedule.year = :year',
         {
             workPlace:workPlace,
             month:month,
-            dayOfWeek:dayOfWeek
+            dayOfWeek:dayOfWeek,
+            year: year
         })
         .getMany()
         
@@ -197,6 +208,9 @@ export class WorkScheduleService {
         } catch (error) {
             throw ErrorManager.createSignatureError(error.message)
         }
+
+    }
+    public async getFilterSchedule (){
 
     }
 }
