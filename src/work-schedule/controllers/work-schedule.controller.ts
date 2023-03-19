@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { Put } from '@nestjs/common/decorators';
+import { Put, Query } from '@nestjs/common/decorators';
 import { PublicAccess } from 'src/auth/decorators/public.decorator';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
@@ -12,7 +12,8 @@ import {
   WorkScheduleDTO,
 } from '../dto/work-schedule.dto';
 import { WorkScheduleService } from '../service/work-schedule.service';
-import { ApiTags, ApiHeader, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiHeader, ApiParam, ApiQuery } from '@nestjs/swagger';
+import { Month } from 'src/constants/schedule.enum';
 
 @ApiTags('Work Schedules')
 @Controller('work-schedule')
@@ -72,12 +73,29 @@ export class WorkScheduleController {
   @ApiHeader({
     name: 'access_token',
   })
+  @ApiParam({
+    name: 'id',
+    description: 'UserID',
+  })
+  @ApiQuery({
+    name: 'month',
+    description: 'Month',
+  })
+  @ApiQuery({
+    name: 'year',
+    description: 'Year',
+  })
   @Roles('ADMIN', 'SUPERVISOR', 'USER')
-  @Post('/calendar/:id')
+  @Get('/calendar/:id')
   public async getCalendar(
-    @Body() body: GetFilterScheduleDTO,
     @Param('id') id: string,
+    @Query('month') month: Month,
+    @Query('year') year: number,
   ) {
+    const body: GetFilterScheduleDTO = {
+      month,
+      year,
+    };
     return await this.workSchedulesServices.getFilterSchedule(body, id);
   }
 }
