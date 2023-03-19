@@ -1,12 +1,18 @@
-import { Body, Controller, Get, Param, Post, UseGuards} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { Put } from '@nestjs/common/decorators';
 import { PublicAccess } from 'src/auth/decorators/public.decorator';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { SchedulePutDTO, StartOrEndingWorkDTO, UserSchedulePlaceDTO, WorkScheduleDTO } from '../dto/work-schedule.dto';
+import {
+  GetFilterScheduleDTO,
+  SchedulePutDTO,
+  StartOrEndingWorkDTO,
+  UserSchedulePlaceDTO,
+  WorkScheduleDTO,
+} from '../dto/work-schedule.dto';
 import { WorkScheduleService } from '../service/work-schedule.service';
-import {ApiTags, ApiHeader, ApiParam} from '@nestjs/swagger'
+import { ApiTags, ApiHeader, ApiParam } from '@nestjs/swagger';
 
 @ApiTags('Work Schedules')
 @Controller('work-schedule')
@@ -36,9 +42,8 @@ export class WorkScheduleController {
     return await this.workSchedulesServices.findAllSchedule();
   }
   @ApiParam({
-    name:'id',
-    description:'User ID '
-
+    name: 'id',
+    description: 'User ID ',
   })
   @PublicAccess()
   @Get(':id')
@@ -63,5 +68,16 @@ export class WorkScheduleController {
     @Body() body: StartOrEndingWorkDTO,
   ) {
     return await this.workSchedulesServices.putWorking(id, body);
+  }
+  @ApiHeader({
+    name: 'access_token',
+  })
+  @Roles('ADMIN', 'SUPERVISOR', 'USER')
+  @Post('/calendar/:id')
+  public async getCalendar(
+    @Body() body: GetFilterScheduleDTO,
+    @Param('id') id: string,
+  ) {
+    return await this.workSchedulesServices.getFilterSchedule(body, id);
   }
 }

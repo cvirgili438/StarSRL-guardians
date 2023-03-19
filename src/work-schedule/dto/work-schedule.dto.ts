@@ -144,7 +144,7 @@ export class StartOrEndingWorkDTO{
     validateDayOfMonth:()=>void
     
 }
-export class GetFilterSchedule{
+export class GetFilterScheduleDTO{
     @ApiProperty()
     @IsNotEmpty()
     @IsEnum(Month)
