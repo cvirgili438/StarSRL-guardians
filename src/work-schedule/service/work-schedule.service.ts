@@ -90,7 +90,7 @@ export class WorkScheduleService {
         !year
       ) {
         throw new ErrorManager({
-          type: 'NO_CONTENT',
+          type: 'BAD_REQUEST',
           message: 'Missing parameters',
         });
       }
