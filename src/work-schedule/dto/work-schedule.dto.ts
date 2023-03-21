@@ -62,6 +62,10 @@ export class UserSchedulePlaceDTO {
     month:Month  
     @ApiProperty()
     @IsNotEmpty()
+    @IsNumber()
+    year:number
+    @ApiProperty()
+    @IsNotEmpty()
     @IsUUID()
     workPlace: WorkPlacesEntity
     @ApiProperty()
@@ -139,4 +143,14 @@ export class StartOrEndingWorkDTO{
     @BeforeUpdate()
     validateDayOfMonth:()=>void
     
+}
+export class GetFilterScheduleDTO{
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsEnum(Month)
+    month:Month
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsNumber()
+    year:number
 }
