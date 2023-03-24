@@ -4,12 +4,10 @@ import { AuthController } from './controllers/auth.controller';
 import { UsersService } from 'src/users/service/users.service';
 import { UsersModule } from 'src/users/users.module';
 
-
 @Global()
 @Module({
-  imports:[UsersModule]
-  ,
+  imports: [UsersModule],
   providers: [AuthService, UsersService],
-  controllers: [AuthController]
+  controllers: [AuthController],
 })
 export class AuthModule {}

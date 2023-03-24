@@ -1,13 +1,27 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { PublicAccess } from 'src/auth/decorators/public.decorator';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { idUserDecorator } from 'src/auth/decorators/userID.decorator';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { UserIdGuard } from 'src/auth/guards/user-id.guard';
-import { UserCreateDTO, UserDTO, UserToScheduleDTO, UserUpdateDTO } from '../dto/user.dto';
+import {
+  UserCreateDTO,
+  UserDTO,
+  UserToScheduleDTO,
+  UserUpdateDTO,
+} from '../dto/user.dto';
 import { UsersService } from '../service/users.service';
-import {ApiTags,ApiHeader} from '@nestjs/swagger'
+import { ApiTags, ApiHeader } from '@nestjs/swagger';
 @ApiTags('Users')
 @Controller('users')
 @UseGuards(AuthGuard, RolesGuard, UserIdGuard)

@@ -9,15 +9,10 @@ import { StatesEntity } from 'src/states/entities/states.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      UserEntity,
-      WorkScheduleEntity,
-      StatesEntity
-    ])
-  ]
-  ,
-  providers: [ UsersService],
+    TypeOrmModule.forFeature([UserEntity, WorkScheduleEntity, StatesEntity]),
+  ],
+  providers: [UsersService],
   controllers: [UsersController],
-  exports:[UsersService, TypeOrmModule]
+  exports: [UsersService, TypeOrmModule],
 })
 export class UsersModule {}

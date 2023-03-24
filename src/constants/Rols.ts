@@ -1,11 +1,10 @@
-
-export enum ROLS{
-    USER='USER',
-    ADMIN='ADMIN',
-    SUPERVISOR='SUPERVISOR'
+export enum ROLS {
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+  SUPERVISOR = 'SUPERVISOR',
 }
 
 export enum ACCESS_LEVEL {
-    MANTEINER =40,
-    OWNER=50 
+  MANTEINER = 40,
+  OWNER = 50,
 }

@@ -1,11 +1,23 @@
-import { Body, Controller, Get, Param, Post, Put,UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { PublicAccess } from 'src/auth/decorators/public.decorator';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { ByNameDTO, updateWorkPlacesDTO, workPlacesDTO } from '../dto/workPlaces.dto';
+import {
+  ByNameDTO,
+  updateWorkPlacesDTO,
+  workPlacesDTO,
+} from '../dto/workPlaces.dto';
 import { WorkPlacesService } from '../service/work-places.service';
-import {ApiTags, ApiHeader} from '@nestjs/swagger'
+import { ApiTags, ApiHeader } from '@nestjs/swagger';
 
 @ApiTags('Work Places')
 @Controller('work-places')

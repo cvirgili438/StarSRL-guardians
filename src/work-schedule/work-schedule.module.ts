@@ -9,15 +9,15 @@ import { UsersService } from 'src/users/service/users.service';
 import { StatesEntity } from 'src/states/entities/states.entity';
 
 @Module({
-  imports:[
+  imports: [
     TypeOrmModule.forFeature([
       WorkScheduleEntity,
       UserEntity,
       WorkPlacesEntity,
-      StatesEntity
-    ])
+      StatesEntity,
+    ]),
   ],
-  providers: [WorkScheduleService,UsersService],
+  providers: [WorkScheduleService, UsersService],
   controllers: [WorkScheduleController],
 })
 export class WorkScheduleModule {}

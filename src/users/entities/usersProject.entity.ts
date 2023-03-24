@@ -9,7 +9,6 @@
 //     @Column({type:'enum',enum:ACCESS_LEVEL})
 //     accessLevel : ACCESS_LEVEL
 
-
 //      @ManyToOne(()=>UserEntity,(user)=>user.projectsIncludes)
 //         user: UserEntity
 //      @ManyToOne(()=> ProjectEntity,(project)=>project.usersIncludes)

@@ -242,7 +242,7 @@ export class WorkScheduleService {
               year: body.year,
             },
           )
-          .leftJoinAndSelect('schedules.user', 'user')          
+          .leftJoinAndSelect('schedules.user', 'user')
           .getMany();
 
       if (getSchedules.length > 0) return getSchedules;
@@ -253,7 +253,7 @@ export class WorkScheduleService {
         });
       }
     } catch (error) {
-        throw ErrorManager.createSignatureError(error.message)
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 }
