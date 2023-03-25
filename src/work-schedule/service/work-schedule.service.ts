@@ -243,6 +243,7 @@ export class WorkScheduleService {
             },
           )
           .leftJoinAndSelect('schedules.user', 'user')
+          .leftJoinAndSelect('schedules.workPlace', 'workPlace')
           .getMany();
 
       if (getSchedules.length > 0) return getSchedules;
